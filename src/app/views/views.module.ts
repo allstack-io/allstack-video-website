@@ -11,6 +11,8 @@ import { SharedModule } from '../shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NgProgressHttpModule } from '@ngx-progressbar/http';
 import { NgProgressRouterModule } from '@ngx-progressbar/router';
+// MDB Angular Pro
+import { SidenavModule, NavbarModule } from 'ng-uikit-pro-standard'
 // For MDB Angular Pro
 import { CollapseModule } from 'ng-uikit-pro-standard'
 import { FooterComponent } from '../main-layout/footer/footer.component';
@@ -90,6 +92,7 @@ import { AccordionModule } from 'ng-uikit-pro-standard';
     ReactiveFormsModule,
     BrowserModule,
     BrowserAnimationsModule,
+    SidenavModule, NavbarModule,
     CollapseModule,
     SharedModule,
     AccordionModule,

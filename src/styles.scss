@@ -32,9 +32,19 @@ margin-bottom: 0px;
 @import "~@aws-amplify/ui/src/Theme.css";
 @import "~@aws-amplify/ui/src/Angular.css";
 .amplify-form-button {
-  background-color: #592965;
+  background-color: black;
 }
 .amplify-form-button:hover {
-  background-color: #00B9F2
+  background-color: black
 }
 /* Auth related styles --> End */
+
+
+.navbar-toggler {
+    padding: 0.25rem 0.75rem;
+    font-size: 1.25rem;
+    line-height: 1;
+    background-color: black !important;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+}

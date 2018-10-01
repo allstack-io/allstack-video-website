@@ -11,6 +11,9 @@ import { NgProgressRouterModule } from '@ngx-progressbar/router';
 import { NgProgressHttpClientModule } from '@ngx-progressbar/http-client';
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routes.service';
+// For MDB Angular Pro
+import { NavbarModule } from 'ng-uikit-pro-standard'
+
 import { NavigationModule } from './main-layout/navigation/navigation.module';
 import { AuthGuardService } from './services/auth-guard.service';
 import { SharedModule } from './shared/shared.module';
@@ -56,6 +59,7 @@ import { AccordionModule } from 'ng-uikit-pro-standard';
     NgProgressHttpClientModule,
     NgProgressRouterModule,
     HttpClientModule,
+    NavbarModule,
     AvatarModule,
     MaterialChipsModule,
     PopoverModule

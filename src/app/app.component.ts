@@ -6,7 +6,7 @@ import Amplify, { API, graphqlOperation } from 'aws-amplify';
 @Component({
   selector: 'mdb-root',
   templateUrl: 'app.component.html',
-  styleUrls: ['app.component.css']
+  styleUrls: ['app.component.scss']
 })
 export class AppComponent implements OnInit {
   specialPage = false;

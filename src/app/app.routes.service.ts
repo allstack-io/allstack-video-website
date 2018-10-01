@@ -62,8 +62,8 @@ import { AppComponent } from './app.component';
 
 const routes: Route[] = [
   // { path: '', pathMatch: 'full', redirectTo: 'pages/post-listing' },
-  { path: '', pathMatch: 'full', redirectTo: '/' },
-  // { path: '', pathMatch: 'full', redirectTo: 'pages/login' },
+  // { path: '', pathMatch: 'full', redirectTo: '/' },
+  { path: '', pathMatch: 'full', redirectTo: 'pages/login' },
   { path: 'dashboards',
   canActivate: [AuthGuardService],
   children:
