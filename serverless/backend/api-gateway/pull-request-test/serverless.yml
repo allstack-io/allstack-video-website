@@ -1,0 +1,33 @@
+service: pull-request-test # NOTE: update this with your service name
+plugins:
+  - serverless-plugin-typescript
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: prod
+  region: us-east-1
+  apiKeys:
+    #- pull-request-test #BAoxvEUiaE3g7zwAoC1MBaMoiyGvHn2q5lXm46Dw
+  #usagePlan:
+    #quota:
+      #limit: 100
+      #offset: 0
+      #period: DAY
+    #throttle:
+      #burstLimit: 100
+      #rateLimit: 100
+functions:
+  pullRequestTest:
+    handler: handler.pullRequestTest
+    package:
+      include:
+        - handler.ts
+        - resources/*
+        - node_modules/**
+    events:
+     - http:
+          path: pullRequestTest
+          method: post
+          #private: true
+          cors: true
+    

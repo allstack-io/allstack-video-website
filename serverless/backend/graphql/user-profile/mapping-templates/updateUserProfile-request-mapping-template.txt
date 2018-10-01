@@ -1,0 +1,16 @@
+{
+    "version" : "2017-02-28",
+    "operation" : "UpdateItem",
+    "key" : {
+        "username" : { "S" : "${context.arguments.username}" }
+    },
+    "update" : {
+        "expression" : "SET email = :email, firstname = :firstname, lastname = :lastname, mobile = :mobile",
+        "expressionValues": {
+        	":email" : { "S" : "${context.arguments.email}" },
+        	":firstname" : { "S" : "${context.arguments.firstname}" },
+            ":lastname" : { "S" : "${context.arguments.lastname}" },
+            ":mobile" : { "S" : "${context.arguments.mobile}" }
+        }
+    }
+}

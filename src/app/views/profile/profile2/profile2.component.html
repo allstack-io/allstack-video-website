@@ -1,0 +1,218 @@
+<div class="card card-cascade narrower mt-5">
+
+    <!--Card image-->
+    <div class="view view-cascade gradient-card-header blue-gradient narrower py-4 mx-4 mb-3 d-flex justify-content-center align-items-center">
+  
+      <h4 class="white-text font-weight-bold text-uppercase mb-0">2018 R2 (VFP) Runs : {{timeStamp}}</h4>
+  
+    </div>
+  
+    <!--/Card image-->
+    <!--<div class="row  d-flex align-items-center justify-content-center">
+      <div class="col-md-6 mx-auto">
+        <div class="md-form">
+          <input type="search" [(ngModel)]="searchText" id="search" class="form-control" mdbInputDirective [mdbValidate]="false">
+          <label for="search">Search build</label>
+        </div>
+      </div>
+      <div class="col-md-3 mx-auto">
+        <button class="btn btn-primary waves-light btn-sm" mdbWavesEffect (click)="generateCsv()">Generate CSV</button>
+      </div>
+    </div>-->
+    <div class="px-2">
+  
+      <!--Table-->
+      <table class="table table-hover table-responsive-md mb-0">
+        <!--Table head-->
+        <thead>
+          <tr>
+            <th style="width: 10px">Run Id
+              <mdb-icon icon="sort" (click)="sortBy('Id')"></mdb-icon>
+            </th>
+            <th class="th-lg">Build
+              <mdb-icon icon="sort" (click)="sortBy('Build')"></mdb-icon>
+            </th>
+            <th mdbPopover="Status of Run Session. Possible values are 'Passed/Failed/Skipped/Undefined/Not Executed'" triggers="mouseenter:mouseleave" class="th-lg">Status
+              <mdb-icon icon="sort" (click)="sortBy('Status')"></mdb-icon>
+            </th>
+            <th mdbPopover="T - Total Scenarios | P - Passed Scenarios | F - Failed Scenarios | S - Skipped Scenarios | U - Undefined Scenarios" triggers="mouseenter:mouseleave" class="th-lg">Metrics
+              <mdb-icon icon="sort" (click)="sortBy('Metrics')"></mdb-icon>
+            </th>
+            <th class="th-lg">Report
+              <mdb-icon icon="sort" (click)="sortBy('Report')"></mdb-icon>
+            </th>
+            <th mdbPopover="Detailed Summary with Sceanrios & Exceptions (if any)" triggers="mouseenter:mouseleave" class="th-lg">Summary
+              <mdb-icon icon="sort" (click)="sortBy('Summary')"></mdb-icon>
+            </th>
+            <!--<th class="th-lg">TimeStamp
+              <mdb-icon icon="sort" (click)="sortBy('TimeStamp')"></mdb-icon>
+            </th>-->
+            <!--<th class="th-lg">Duration
+              <mdb-icon icon="sort" (click)="sortBy('Duration')"></mdb-icon>
+            </th>-->
+          </tr>
+        </thead>
+        <!--Table head-->
+  
+        <!--Table body-->
+        <tbody>
+          <tr #list *ngFor="let data of search(); let i = index">
+            <th class="animated fadeInLeft" *ngIf="i+1 >= firstVisibleIndex && i+1 <= lastVisibleIndex" scope="row">{{data.Id}}</th>
+            <td class="animated fadeInLeft" *ngIf="i+1 >= firstVisibleIndex && i+1 <= lastVisibleIndex">{{data.Build}}</td>
+            <td class="animated fadeInLeft" *ngIf="i+1 >= firstVisibleIndex && i+1 <= lastVisibleIndex">
+              <span *ngIf="data.Status === 'FAILED'" class="badge badge-danger">Failed</span>
+              <span *ngIf="data.Status === 'PASSED'" class="badge badge-success">Passed</span>
+              <span *ngIf="data.Status === 'SKIPPED'" class="badge badge-blue">Skipped</span>
+              <span *ngIf="data.Status === 'UNDEFINED'" class="badge badge-warning">Undefined</span>
+              <span *ngIf="data.Status === 'NOTHING EXECUTED'" class="badge badge-info">Nothing Executed</span>
+            </td>
+            <td mdbPopover="Total: {{ data.Metrics.total }} | Passed: {{data.Metrics.passed}} | Failed: {{data.Metrics.failed}} | Skipped: {{data.Metrics.skipped}}  | Undefined: {{data.Metrics.undefined}}" triggers="mouseenter:mouseleave" class="animated fadeInLeft" *ngIf="i+1 >= firstVisibleIndex && i+1 <= lastVisibleIndex">            
+              <span class="badge badge-pill badge-light">{{data.Metrics.total}}</span>
+              <span class="badge badge-success">{{data.Metrics.passed}}</span>
+              <span *ngIf="data.Metrics.failed !== '0'" class="badge badge-danger">{{data.Metrics.failed}}</span>
+              <span *ngIf="data.Metrics.failed === '0'" class="badge badge-pill badge-light">{{data.Metrics.failed}}</span>
+              <span class="badge badge-pill badge-light">{{data.Metrics.skipped}}</span>
+              <span class="badge badge-pill badge-light">{{data.Metrics.undefined}}</span>
+            </td>
+            <td class="animated fadeInLeft" *ngIf="i+1 >= firstVisibleIndex && i+1 <= lastVisibleIndex"><a target="_blank"
+                href='{{ data.Report }}'>
+                <mdb-icon size="lg" icon="pie-chart"></mdb-icon>
+              </a></td>
+            <td class="animated fadeInLeft" *ngIf="i+1 >= firstVisibleIndex && i+1 <= lastVisibleIndex">
+              <!--<button type="button" mdbBtn color="primary" class="relative waves-light" (click)="showModal(i)" (click)="basicModal.show()" mdbWavesEffect> view </button >-->
+              <!--<a (click)="showModal(i)" (click)="basicModal.show()"><mdb-icon size="lg" icon="pie-chart"></mdb-icon></a>-->
+              <!--<button mdbBtn color="indigo" size="sm" mdbWavesEffect type="button" class="m-0" (click)="showModal(i)"
+                (click)="basicModal.show()">view</button>-->
+                <mdb-icon (click)="showModal(i)"
+                (click)="basicModal.show()" size="lg" icon="tasks"></mdb-icon>
+            </td>
+            <!--<td class="animated fadeInLeft" *ngIf="i+1 >= firstVisibleIndex && i+1 <= lastVisibleIndex">{{data.TimeStamp}}</td>-->
+            <!--<td class="animated fadeInLeft" *ngIf="i+1 >= firstVisibleIndex && i+1 <= lastVisibleIndex">{{data.Duration}}</td>-->
+          </tr>
+        </tbody>
+        <!--Table body-->
+      </table>
+  
+    </div>
+  
+    <hr class="my-0">
+  
+    <!--Bottom Table UI-->
+    <div class="d-flex justify-content-center">
+  
+      <!--Pagination -->
+      <nav class="my-4 pt-2">
+        <ul class="pagination pagination-circle pg-purple mb-0">
+  
+          <!--First-->
+          <li class="page-item clearfix d-none d-md-block" (click)="firstPage()" [ngClass]="{disabled: activePage == firstPageNumber}">
+            <a class="page-link">First</a>
+          </li>
+  
+          <!--Arrow left-->
+          <li class="page-item" (click)="previousPage($event)" [ngClass]="{disabled: activePage == firstPageNumber}">
+            <a class="page-link" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+              <span class="sr-only">Previous</span>
+            </a>
+          </li>
+  
+          <!--Numbers-->
+          <li *ngFor="let page of paginators; let i = index" class="page-item" [ngClass]="{active: i+1 == activePage}">
+            <a class="page-link waves-light" (click)="changePage($event)" mdbWavesEffect>{{page}}</a>
+          </li>
+  
+  
+  
+          <!--Arrow right-->
+          <li class="page-item" (click)="nextPage($event)" [ngClass]="{disabled: activePage == lastPageNumber}">
+            <a class="page-link" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+  
+          <!--First-->
+          <li class="page-item clearfix d-none d-md-block" (click)="lastPage()" [ngClass]="{disabled: activePage == lastPageNumber}">
+            <a class="page-link">Last</a>
+          </li>
+  
+        </ul>
+      </nav>
+      <!--/Pagination -->
+  
+    </div>
+    <!--Bottom Table UI-->
+  
+  </div>
+  <div mdbModal #basicModal="mdbModal" style="overflow-y: auto" class="modal fade right" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog-centered modal-dialog modal-lg modal-full-height modal-right" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+            <span aria-hidden="true">×</span>
+          </button>
+          <h4 class="modal-title w-100" id="myModalLabel"> Run Summary </h4>
+        </div>
+        <div class="modal-body">
+            
+          
+          <div class="table-responsive">
+                <table class="table table-sm table-fixed">
+                  <thead class="indigo white-text">
+                    <tr>
+                      <th scope="col">S.NO</th>
+                      <th scope="col">Scenario</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Author</th>
+                      <th scope="col">Exceptions (if any)</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngFor="let log of logs; let i = index">
+                    <tr>
+                      <th scope="row">{{ i + 1 }}</th>
+                      <td>{{ log.name }}</td>
+                      <td>
+                          <span *ngIf="log.status['status'] === 'failed'" class="badge badge-danger">Failed</span>
+                          <span *ngIf="log.status['status'] === 'passed'" class="badge badge-success">Passed</span>
+                          <span *ngIf="log.status['status'] === 'skipped'" class="badge badge-blue">Skipped</span>
+                          <span *ngIf="log.status['status'] === 'undefined'" class="badge badge-warning">Undefined</span>
+                          <span *ngIf="log.status['status'] === ''" class="badge badge-info">Nothing Executed</span>
+                      </td>
+                      <td [ngSwitch]="log.author">
+                          <div class="chip" *ngSwitchCase="'hari'">
+                              <img src="../../../../assets/img/profile/hari.png" alt="Contact Person"> {{ log.author}}
+                          </div>
+                          <div class="chip" *ngSwitchCase="'shirish'">
+                              <img src="../../../../assets/img/profile/shirish.png" alt="Contact Person"> {{ log.author}}
+                          </div>
+                          <div class="chip" *ngSwitchCase="'akash'">
+                              <img src="../../../../assets/img/profile/akash.png" alt="Contact Person"> {{ log.author}}
+                          </div>
+                          <div class="chip" *ngSwitchCase="'raj'">
+                              <img src="../../../../assets/img/profile/raj.png" alt="Contact Person"> {{ log.author}}
+                          </div>
+                          <div class="chip" *ngSwitchDefault>
+                              <img src="../../../../assets/img/profile/default.png" alt="Contact Person"> {{ log.author}}
+                          </div>
+                      </td>
+                      <td *ngIf="log.status['status'] === 'failed'">
+                          <mark *ngIf="log.status['exception'].name !== ''">{{ log.status['exception'].name}}</mark>
+                          <mark *ngIf="log.status['exception'].name === undefined">Custom Error: function timed out</mark>
+                        </td>
+                    </tr>
+                  </tbody>
+                </table>            
+              </div>
+  
+              
+  
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button size="sm" type="button" mdbBtn color="purple" class="waves-light" aria-label="Close" (click)="basicModal.hide()"
+            mdbWavesEffect>Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

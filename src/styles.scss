@@ -1,0 +1,40 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+    background-color: #f1f3f5; // #eee; // f1f3f5
+}
+
+.card.card-cascade .view.gradient-card-header {
+    padding: 1rem 1rem;
+    text-align: center;
+}
+
+.card.card-cascade h3, 
+.card.card-cascade h4, 
+{
+margin-bottom: 0px;
+}
+.blue-gradient {
+    background: -webkit-linear-gradient(50deg, #45cafc, #303f9f);
+    background: linear-gradient(40deg, #45cafc, #4285f4);
+}
+
+.datepickers .md-form, .inputs .md-form {
+    margin-top: 0 !important;
+}
+
+.modal-full-height.modal-bottom > .modal-content {
+    position: absolute !important;
+    bottom: 0;
+}
+
+
+/* Auth related styles --> Start */
+@import "~@aws-amplify/ui/src/Theme.css";
+@import "~@aws-amplify/ui/src/Angular.css";
+.amplify-form-button {
+  background-color: #592965;
+}
+.amplify-form-button:hover {
+  background-color: #00B9F2
+}
+/* Auth related styles --> End */

@@ -1,0 +1,180 @@
+<div class="row justify-content-center">
+    <div class="col-md-8">
+
+        <!--Card-->
+        <div class="card card-cascade narrower">
+
+            <!--Card image-->
+            <div class="view view-cascade gradient-card-header blue-gradient">
+                <h4 class="h4-responsive">Edit your profile</h4>
+            </div>
+            <!--/Card image-->
+
+            <!--Card content-->
+            <div class="card-body card-body-cascade text-center">
+
+                <form [formGroup]="usrProfileForm" (ngSubmit)="onSubmit()">
+
+                    <!--First row-->
+                    <div class="row">
+                        <!--First column-->
+                        <div class="col-md-4 animated fadeInLeft">
+                            <div class="md-form">
+                                <input [placeholder]="username" type="text" formControlName="userName" class="form-control">
+                                <label class="active disabled" for="form11">Username (can't be changed)</label>
+                            </div>
+                        </div>
+
+                        <!--Second column-->
+                        <div class="col-md-4 animated fadeInLeft">
+                            <div class="md-form">
+                                <input [placeholder]="firstname" type="text" formControlName="firstname" class="form-control">
+                                <label class="active" for="form12">First Name</label>
+                            </div>
+                        </div>
+
+                        <!--Third column-->
+                        <div class="col-md-4 animated fadeInRight">
+                            <div class="md-form">
+                                <input [placeholder]="lastname" type="text" formControlName="lastname" class="form-control">
+                                <label class="active" for="form13">Last Name</label>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/.First row-->
+
+                    <!--Second row-->
+                    <div class="row">
+                        <!--First column-->
+                        <div class="col-md-4 animated fadeInLeft">
+                            <div class="md-form">
+                                <input [placeholder]="email" type="text" formControlName="email" class="form-control">
+                                <label class="active" for="form21">Email</label>
+                            </div>
+                        </div>
+
+                        <!--Second column-->
+                        <div class="col-md-6 animated fadeInRight">
+                            <div class="md-form">
+                                <input [placeholder]="mobile" type="text" pattern="[0-9]+" formControlName="mobile"
+                                    class="form-control">
+                                <label class="active" for="form22">Mobile</label>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/.Second row-->
+
+                    <!--Third row-->
+                    <!--<div class="row">
+                        <!-First column->
+                        <div class="col-md-4">
+                            <div class="md-form">
+                                <input placeholder="New York" type="text" id="form31" class="form-control">
+                                <label class="active" for="form31">City</label>
+                            </div>
+                        </div>
+
+                        <!-Second column->
+                        <div class="col-md-4">
+                            <div class="md-form">
+                                <input placeholder="00432" type="text" id="form32" class="form-control">
+                                <label class="active" for="form32">Postcode</label>
+                            </div>
+                        </div>
+
+                        <!-Third column->
+                        <div class="col-md-4">
+                            <div class="md-form">
+                                <input type="text" mdbInputDirective id="form33" class="form-control">
+                                <label for="form33">Country</label>
+                            </div>
+                        </div>
+                    </div>-->
+                    <!--/.Third row-->
+
+                    <!--Fourth row-->
+                    <!--<div class="row">
+                        <div class="col-md-12">
+
+                            <div class="md-form">
+                                <textarea mdbInputDirective type="text" id="form76" class="md-textarea form-control">Lorem</textarea>
+                                <label for="form76">Bio</label>
+                            </div>
+
+                        </div>
+
+
+                    </div>-->
+                    <!--/.Fourth row-->
+
+                    <div class="text-center">
+                        <button [disabled]="!usrProfileForm.valid" type="submit" class="btn blue-gradient btn-rounded waves-light"
+                            mdbWavesEffect>Save</button>
+                    </div>
+                </form>
+                <!--Contact Form-->
+
+
+
+            </div>
+            <!--/.Card content-->
+
+        </div>
+        <!--/.Card-->
+
+
+
+    </div>
+    <!--<div class="col-md-4">
+
+        <!-Section: Team v.2->
+        <section class="section team-section pb-3">
+
+            <div class="row text-center">
+
+
+                <div class="col-md-12">
+                    <!-Card->
+                    <div class="card card-cascade narrower ">
+                        <!-Card image->
+                        <div class="view view-cascade gradient-card-header blue-gradient">
+                            <h4 class="h4-responsive">Pic</h4>
+                        </div>
+                        <!-/Card image->
+                        <!-Card content->
+                        <div class="card-body card-body-cascade text-center">
+                                                                                <!-<div class="avatar">
+                                <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(10).jpg" class="z-depth-1"
+                                    alt="First sample avatar image">
+                            </div>-->
+                                <!--<amplify-photo-picker (loaded)="onImagePreviewLoaded($event)" (picked)="onImageSelected($event)">
+                            </amplify-photo-picker>-->
+                                <!--Facebook-->
+                                <!--<a type="button" class="btn-floating btn-small btn-fb waves-light" mdbWavesEffect>
+                                <i class="fa fa-facebook"></i>
+                            </a>-->
+                                <!--Dribbble-->
+                                <!--<a type="button" class="btn-floating btn-small btn-dribbble waves-light" mdbWavesEffect>
+                                <i class="fa fa-dribbble"></i>
+                            </a>-->
+                                <!--Twitter-->
+                                <!--<a type="button" class="btn-floating btn-small btn-tw waves-light" mdbWavesEffect>
+                                <i class="fa fa-twitter"></i>
+                            </a>->
+
+                            </div>
+                            <!-/.Card content->
+                        </div>
+                        <!-/.Card->
+                    </div>
+
+
+
+
+
+                </div>
+        </section>
+        <!-Section: Team v.2->
+
+    </div>-->
+</div>

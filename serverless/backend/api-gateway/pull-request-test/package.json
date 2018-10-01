@@ -1,0 +1,23 @@
+{
+  "name": "pull-request-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@octokit/rest": "^15.12.0",
+    "github-api": "^3.0.0",
+    "jenkins": "^0.22.1",
+    "jenkins-api": "^0.3.1",
+    "slack": "^11.0.1"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.13",
+    "serverless-plugin-typescript": "^1.1.5"
+  }
+}

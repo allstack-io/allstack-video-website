@@ -1,0 +1,56 @@
+{
+	"providers": {
+		"awscloudformation": {
+			"AuthRoleName": "allstackio-20180929075737-authRole",
+			"UnauthRoleArn": "arn:aws:iam::854896288097:role/allstackio-20180929075737-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::854896288097:role/allstackio-20180929075737-authRole",
+			"Region": "us-east-1",
+			"DeploymentBucketName": "allstackio-20180929075737-deployment",
+			"UnauthRoleName": "allstackio-20180929075737-unauthRole",
+			"StackName": "allstackio-20180929075737",
+			"StackId": "arn:aws:cloudformation:us-east-1:854896288097:stack/allstackio-20180929075737/dc3b4cf0-c3de-11e8-8a83-50d5ca6e604a"
+		}
+	},
+	"hosting": {
+		"S3AndCloudFront": {
+			"service": "S3AndCloudFront",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/allstackio-20180929075737-deployment/amplify-cfn-templates/hosting/template.json",
+				"logicalId": "hostingS3AndCloudFront"
+			},
+			"lastPushTimeStamp": "2018-09-29T15:58:56.294Z",
+			"output": {
+				"CloudFrontSecureURL": "https://d2yb2n4hqjtr29.cloudfront.net",
+				"S3BucketSecureURL": "https://allstackio-20180929075908--hostingbucket.s3.amazonaws.com",
+				"WebsiteURL": "http://allstackio-20180929075908--hostingbucket.s3-website-us-east-1.amazonaws.com",
+				"CloudFrontDistributionID": "EX5X8FIFDDEU",
+				"Region": "us-east-1",
+				"HostingBucketName": "allstackio-20180929075908--hostingbucket",
+				"CloudFrontDomainName": "d2yb2n4hqjtr29.cloudfront.net"
+			},
+			"lastPushDirHash": "C+DVE6vIuFh+yYWaUZtnIzbyhFI="
+		}
+	},
+	"auth": {
+		"cognito11892637": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/allstackio-20180929075737-deployment/amplify-cfn-templates/auth/cognito11892637-cloudformation-template.yml",
+				"logicalId": "authcognito11892637"
+			},
+			"lastPushTimeStamp": "2018-09-29T15:58:56.335Z",
+			"output": {
+				"AppClientSecret": "1h8aoj8jc3c6vjlpecsmihdqn05gbcc8vqkjgstqc91huang5s40",
+				"UserPoolId": "us-east-1_oyfS9Fx9a",
+				"AppClientIDWeb": "52aag3vhdr6ubenc4pct0km3me",
+				"AppClientID": "7huvsl2vqloq59997v8rugihnh",
+				"IdentityPoolId": "us-east-1:3d0d7a46-a2c7-416c-a962-3c60e76f58ce",
+				"IdentityPoolName": "cognito11892637_identitypool_11892637",
+				"UserPoolName": "cognito11892637_userpool_11892637"
+			},
+			"lastPushDirHash": "/nMQuYtAOPNj4b1OZk8qywAOthw="
+		}
+	}
+}

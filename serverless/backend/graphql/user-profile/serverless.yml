@@ -1,0 +1,221 @@
+service: user-profile # NOTE: update this with your service name
+plugins:
+  #- serverless-offline
+  - serverless-appsync-plugin
+  - serverless-pseudo-parameters
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: prod
+  region: us-east-1
+custom:
+  accountId: 854896288097 #hard coded
+  appSync:
+    name: fondashV2UserProfile
+    authenticationType: AMAZON_COGNITO_USER_POOLS
+    userPoolConfig:
+      awsRegion:  us-east-1
+      defaultAction: ALLOW
+      userPoolId:  us-east-1_XI6JbzMDn # us-east-1_4xMDkdY83 #{ Ref: CognitoUserPool } #hard coded
+    mappingTemplates:
+      - dataSource: fondashV2AutomationsRuns
+        type: Query
+        field: getRun
+        request: "getRun-request-mapping-template.txt"
+        response: "getRun-response-mapping-template.txt"
+      - dataSource: fondashV2AutomationsRuns
+        type: Query
+        field: listRuns
+        request: "listRuns-request-mapping-template.txt"
+        response: "listRuns-response-mapping-template.txt"
+      - dataSource: fondashV2UserProfile
+        type: Mutation
+        field: createUserProfile
+        request: "createUserProfile-request-mapping-template.txt"
+        response: "createUserProfile-response-mapping-template.txt"
+      - dataSource: fondashV2UserProfile
+        type: Mutation
+        field: deleteUserProfile
+        request: "deleteUserProfile-request-mapping-template.txt"
+        response: "deleteUserProfile-response-mapping-template.txt"
+      - dataSource: fondashV2UserProfile
+        type: Mutation
+        field: updateUserProfile
+        request: "updateUserProfile-request-mapping-template.txt"
+        response: "updateUserProfile-response-mapping-template.txt"     
+      - dataSource: fondashV2UserProfile
+        type: Query
+        field: getUserProfile
+        request: "getUserProfile-request-mapping-template.txt"
+        response: "getUserProfile-response-mapping-template.txt"
+    serviceRole: "fondashV2UserProfileServiceRole"
+    dataSources:
+      - type: AMAZON_DYNAMODB
+        name: fondashV2UserProfile
+        #description: 'fondashV2UserProfile Table'
+        config:
+          tableName: 'fondashv2UserProfile_Manual' #hard coded
+          #tableName: 'fondashV2UserProfile'
+          #serviceRoleArn: "arn:aws:iam::${self:custom.accountId}:role/Dynamo-${self:custom.appSync.serviceRole}"
+      - type: AWS_LAMBDA
+        name: fondashV2AutomationsRuns
+        description: 'fondashV2AutomationsRuns Table'
+        config:
+          lambdaFunctionArn: "arn:aws:lambda:us-east-1:${self:custom.accountId}:function:user-profile-${self:provider.stage}-fondashV2AutomationsRuns"
+          serviceRoleArn: "arn:aws:iam::${self:custom.accountId}:role/Dynamo-${self:custom.appSync.serviceRole}"      
+functions:
+  fondashV2AutomationsRuns:
+    handler: handler.fondashV2AutomationsRuns
+    role: fondashV2UserProfileServiceRole
+resources:
+  Resources:    
+    fondashV2UserProfileServiceRole:
+      Type: "AWS::IAM::Role"
+      Properties:
+        RoleName: "Dynamo-fondashV2UserProfileServiceRole"
+        AssumeRolePolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: "Allow"
+              Principal:
+                Service:
+                  - "appsync.amazonaws.com"
+                  - "lambda.amazonaws.com"
+              Action:
+                - "sts:AssumeRole"
+        Policies:
+          - PolicyName: "Dynamo-fondashV2UserProfileServiceRole-Policy"
+            PolicyDocument:
+              Version: "2012-10-17"
+              Statement:
+                - Effect: "Allow"
+                  Action:
+                    - "dynamodb:Query"
+                    - "dynamodb:BatchWriteItem"
+                    - "dynamodb:GetItem"
+                    - "dynamodb:DeleteItem"
+                    - "dynamodb:PutItem"
+                    - "dynamodb:Scan"
+                    - "dynamodb:UpdateItem"
+                    - "lambda:invokeFunction"
+                  Resource:
+                    #- "arn:aws:dynamodb:us-east-1:*:table/fondashV2UserProfile"
+                    #- "arn:aws:dynamodb:us-east-1:*:table/fondashV2UserProfile/*"
+                    - "arn:aws:lambda:us-east-1:*:function:user-profile-${self:provider.stage}-fondashV2AutomationsRuns"
+                    - "arn:aws:lambda:us-east-1:*:function:user-profile-${self:provider.stage}-fondashV2AutomationsRuns:*"
+                    #- "arn:aws:dynamodb:us-east-1:*:table/fondashV2InsprintRuns"
+                    #- "arn:aws:dynamodb:us-east-1:*:table/fondashV2InsprintRuns/*"
+                    #- "arn:aws:dynamodb:us-east-1:*:table/fondashV22018R2vfp"
+                    #- "arn:aws:dynamodb:us-east-1:*:table/fondashV22018R2vfp/*"
+                    #- "arn:aws:dynamodb:us-east-1:*:table/fondashV22018R2Smoke"
+                    #- "arn:aws:dynamodb:us-east-1:*:table/fondashV22018R2Smoke/*"
+                    #- "arn:aws:dynamodb:us-east-1:*:table/fondashV22018R1Patch"
+                    #- "arn:aws:dynamodb:us-east-1:*:table/fondashV22018R1Patch/*"
+                    #- "arn:aws:dynamodb:us-east-1:*:table/fondashV22018R1Smoke"
+                    #- "arn:aws:dynamodb:us-east-1:*:table/fondashV22018R1Smoke/*"
+                    - "arn:aws:dynamodb:us-east-1:*:table/nightly_runs_insprint"
+                    - "arn:aws:dynamodb:us-east-1:*:table/nightly_runs_insprint/*"
+                    - "arn:aws:dynamodb:us-east-1:*:table/nightly_runs_prod_patch"
+                    - "arn:aws:dynamodb:us-east-1:*:table/nightly_runs_prod_patch/*"
+                    - "arn:aws:dynamodb:us-east-1:*:table/nightly_runs_prod_r2"
+                    - "arn:aws:dynamodb:us-east-1:*:table/nightly_runs_prod_r2/*"
+                    - "arn:aws:dynamodb:us-east-1:*:table/fondashv2UserProfile_Manual"
+                    - "arn:aws:dynamodb:us-east-1:*:table/fondashv2UserProfile_Manual/*"
+    #fondashV2UserProfile:
+      #Type: "AWS::DynamoDB::Table"
+      #Properties:
+        #TableName: "fondashV2UserProfile"
+ #       KeySchema:
+ #         - AttributeName: username
+ #           KeyType: HASH
+ #       AttributeDefinitions:
+ #         - AttributeName: username
+ #           AttributeType: S
+ #       ProvisionedThroughput:
+ #         ReadCapacityUnits: 10
+ #         WriteCapacityUnits: 10
+ #   fondashV2InsprintRuns:
+ #     Type: "AWS::DynamoDB::Table"
+ #     Properties:
+ #       TableName: "fondashV2InsprintRuns"
+ #       KeySchema:
+#        - AttributeName: testRunID
+#            KeyType: HASH
+#          - AttributeName: runDate
+#            KeyType: RANGE  
+#       AttributeDefinitions:
+#          - AttributeName: testRunID
+#            AttributeType: S
+#          - AttributeName: runDate
+#            AttributeType: S
+#        ProvisionedThroughput:
+#          ReadCapacityUnits: 5
+#          WriteCapacityUnits: 5
+#    fondashV22018R2vfp:
+#      Type: "AWS::DynamoDB::Table"
+ #     Properties:
+ #       TableName: "fondashV22018R2vfp"
+ #       KeySchema:
+ #         - AttributeName: testRunID
+ #           KeyType: HASH
+ #         - AttributeName: runDate
+ #           KeyType: RANGE  
+ #       AttributeDefinitions:
+ #         - AttributeName: testRunID
+ #           AttributeType: S
+ #         - AttributeName: runDate
+ #           AttributeType: S
+ #       ProvisionedThroughput:
+ #         ReadCapacityUnits: 5
+ #         WriteCapacityUnits: 5      
+ #   fondashV22018R2Smoke:
+ #     Type: "AWS::DynamoDB::Table"
+#      Properties:
+#        TableName: "fondashV22018R2Smoke"
+#        KeySchema:
+#          - AttributeName: testRunID
+#            KeyType: HASH
+#          - AttributeName: runDate
+#            KeyType: RANGE  
+#        AttributeDefinitions:
+#          - AttributeName: testRunID
+#            AttributeType: S
+#          - AttributeName: runDate
+#            AttributeType: S
+#        ProvisionedThroughput:
+#          ReadCapacityUnits: 5
+#          WriteCapacityUnits: 5
+#    fondashV22018R1Patch:
+#      Type: "AWS::DynamoDB::Table"
+#      Properties:
+#        TableName: "fondashV22018R1Patch"
+#        KeySchema:
+#          - AttributeName: testRunID
+#            KeyType: HASH
+#          - AttributeName: runDate
+#            KeyType: RANGE  
+#        AttributeDefinitions:
+#          - AttributeName: testRunID
+#            AttributeType: S
+#          - AttributeName: runDate
+#            AttributeType: S
+#        ProvisionedThroughput:
+#          ReadCapacityUnits: 5
+#          WriteCapacityUnits: 5
+#    fondashV22018R1Smoke:
+#      Type: "AWS::DynamoDB::Table"
+ #     Properties:
+ #       TableName: "fondashV22018R1Smoke"
+ #       KeySchema:
+ #         - AttributeName: testRunID
+ #           KeyType: HASH
+ #         - AttributeName: runDate
+ #           KeyType: RANGE  
+ #       AttributeDefinitions:
+ #         - AttributeName: testRunID
+ #           AttributeType: S
+ #         - AttributeName: runDate
+ #           AttributeType: S
+ #       ProvisionedThroughput:
+ #         ReadCapacityUnits: 5
+ #         WriteCapacityUnits: 5

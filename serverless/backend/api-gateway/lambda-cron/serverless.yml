@@ -1,0 +1,17 @@
+service: lambda-cron 
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: prod
+  region: us-east-1
+  apiKeys:
+functions:
+  cron:
+    handler: handler.cron
+    package:
+      include:
+        - handler.ts
+        - node_modules/**
+    events:
+    - schedule: rate(1 minute)
+        #enabled: true

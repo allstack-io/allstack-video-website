@@ -1,0 +1,59 @@
+type Mutation {
+	createUserProfile(
+		username: String!,
+		email: String!,
+		firstname: String,
+		lastname: String,
+		mobile: String
+	): UserProfile!
+	deleteUserProfile(
+		username: String!,
+		email: String!,
+		firstname: String,
+		lastname: String,
+		mobile: String
+	): Boolean
+	updateUserProfile(
+		username: String,
+		email: String,
+		firstname: String,
+		lastname: String,
+		mobile: String
+	): UserProfile!
+}
+
+type Query {
+	getUserProfile(username: String!): AWSJSON!
+	getRun(testRunID: String!, tableName: String!): Run!
+  	listRuns(runDate: String, tableName: String!): AWSJSON!
+}
+
+type UserProfile {
+	username: String!
+	email: String!
+	firstname: String
+	lastname: String
+	mobile: String
+}
+type Run {
+  browser: String
+  buildName: String
+  endTime: String
+  executedOn: String
+  platform: String
+  releaseTag: String
+  report: String
+  runDate: String
+  startTime: String
+  status: String
+  testRunID: String!
+  timeStamp: String
+  totalDuration: String
+  user: String
+  version: String
+}
+
+schema {
+	query: Query
+	mutation: Mutation
+}
